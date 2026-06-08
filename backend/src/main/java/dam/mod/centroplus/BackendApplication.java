@@ -1,4 +1,4 @@
-package dam.mod.backend;
+package dam.mod.centroplus;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

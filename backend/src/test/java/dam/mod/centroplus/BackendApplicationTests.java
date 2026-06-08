@@ -1,4 +1,4 @@
-package dam.mod.backend;
+package dam.mod.centroplus;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
