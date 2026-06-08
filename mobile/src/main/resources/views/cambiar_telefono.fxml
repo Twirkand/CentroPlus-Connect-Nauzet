@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 
 <VBox xmlns:fx="http://javafx.com/fxml"
-    fx:controller="dam.mod.controllers.CambiarTelefonoController"
+    fx:controller="dam.mod.centroplus.controllers.CambiarTelefonoController"
     spacing="15"
     prefWidth="390"
     prefHeight="844"

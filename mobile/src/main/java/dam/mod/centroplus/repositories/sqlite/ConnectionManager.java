@@ -6,9 +6,7 @@ import java.sql.SQLException;
 
 public class ConnectionManager {
 
-
-    private static final String URL =
-            "jdbc:sqlite:src/main/resources/database/centroplus.db";
+    private static final String URL = "jdbc:sqlite:../backend/src/main/resources/database/centroplus.db";
 
     static {
         try {

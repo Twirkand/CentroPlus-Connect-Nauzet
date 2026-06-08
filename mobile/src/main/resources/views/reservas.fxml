@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-    fx:controller="dam.mod.controllers.ReservasController"
+    fx:controller="dam.mod.centroplus.controllers.ReservasController"
     prefWidth="390"
     prefHeight="844"
     style="-fx-padding: 15;">

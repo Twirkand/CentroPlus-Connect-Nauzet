@@ -5,12 +5,15 @@ import dam.mod.centroplus.dto.LoginResponse;
 import dam.mod.centroplus.entity.UsuarioEntity;
 import dam.mod.centroplus.repository.UsuarioRepository;
 import dam.mod.centroplus.security.JwtUtils;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@Tag(name = "Autenticación", description = "Login y gestión de tokens JWT")
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 public class AuthController {
@@ -19,6 +22,7 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtils jwtUtils;
 
+    @Operation(summary = "Iniciar sesión y obtener token JWT")
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
         UsuarioEntity usuario = usuarioRepository.findByDni(request.getDni())

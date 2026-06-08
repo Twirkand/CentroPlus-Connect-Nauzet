@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 
 <VBox xmlns:fx="http://javafx.com/fxml"
-    fx:controller="dam.mod.controllers.LoginController"
+    fx:controller="dam.mod.centroplus.controllers.LoginController"
     spacing="15"
     alignment="TOP_CENTER"
     prefWidth="390"

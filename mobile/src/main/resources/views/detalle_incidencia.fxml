@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 <VBox xmlns:fx="http://javafx.com/fxml"
-    fx:controller="dam.mod.controllers.DetalleIncidenciaController"
+    fx:controller="dam.mod.centroplus.controllers.DetalleIncidenciaController"
     spacing="15"
     alignment="TOP_CENTER"
     prefWidth="390"

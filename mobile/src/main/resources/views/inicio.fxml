@@ -6,7 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-    fx:controller="dam.mod.controllers.InicioController"
+    fx:controller="dam.mod.centroplus.controllers.InicioController"
     prefWidth="390"
     prefHeight="844">
 

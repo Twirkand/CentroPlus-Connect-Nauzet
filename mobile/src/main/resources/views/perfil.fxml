@@ -6,7 +6,7 @@
 <?import javafx.scene.control.Button?>
 
 <VBox xmlns:fx="http://javafx.com/fxml"
-       fx:controller="dam.mod.controllers.PerfilController"
+       fx:controller="dam.mod.centroplus.controllers.PerfilController"
        spacing="15"
        prefWidth="390"
        prefHeight="844"
