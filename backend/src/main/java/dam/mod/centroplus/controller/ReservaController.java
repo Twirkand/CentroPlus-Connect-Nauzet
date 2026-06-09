@@ -35,6 +35,18 @@ public class ReservaController {
         return ResponseEntity.ok(service.findByIdUsuario(idUsuario));
     }
 
+    @Operation(summary = "Listar reservas de una actividad")
+    @GetMapping("/actividad/{idActividad}")
+    public ResponseEntity<List<ReservaDTO>> findByActividad(@PathVariable int idActividad) {
+        return ResponseEntity.ok(service.findByIdActividad(idActividad));
+    }
+
+    @Operation(summary = "Listar reservas por estado (ACTIVA / CANCELADA / COMPLETADA)")
+    @GetMapping("/estado/{estado}")
+    public ResponseEntity<List<ReservaDTO>> findByEstado(@PathVariable String estado) {
+        return ResponseEntity.ok(service.findByEstado(estado));
+    }
+
     @Operation(summary = "Crear nueva reserva")
     @PostMapping
     public ResponseEntity<ReservaDTO> create(@RequestBody ReservaDTO dto) {

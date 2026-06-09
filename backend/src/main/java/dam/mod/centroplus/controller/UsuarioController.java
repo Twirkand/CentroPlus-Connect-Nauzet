@@ -29,6 +29,30 @@ public class UsuarioController {
         return ResponseEntity.ok(service.findById(id));
     }
 
+    @Operation(summary = "Buscar usuario por DNI")
+    @GetMapping("/dni/{dni}")
+    public ResponseEntity<UsuarioDTO> findByDni(@PathVariable String dni) {
+        return ResponseEntity.ok(service.findByDni(dni));
+    }
+
+    @Operation(summary = "Buscar usuario por email")
+    @GetMapping("/email/{email}")
+    public ResponseEntity<UsuarioDTO> findByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(service.findByEmail(email));
+    }
+
+    @Operation(summary = "Buscar usuarios por tipo (ALUMNO / SOCIO / AMBOS)")
+    @GetMapping("/tipo/{tipo}")
+    public ResponseEntity<List<UsuarioDTO>> findByTipo(@PathVariable String tipo) {
+        return ResponseEntity.ok(service.findByTipo(tipo));
+    }
+
+    @Operation(summary = "Buscar usuarios por nombre (búsqueda parcial)")
+    @GetMapping("/buscar")
+    public ResponseEntity<List<UsuarioDTO>> findByNombre(@RequestParam String nombre) {
+        return ResponseEntity.ok(service.findByNombre(nombre));
+    }
+
     @Operation(summary = "Crear nuevo usuario")
     @PostMapping
     public ResponseEntity<UsuarioDTO> create(@RequestBody UsuarioDTO dto, @RequestParam String password) {

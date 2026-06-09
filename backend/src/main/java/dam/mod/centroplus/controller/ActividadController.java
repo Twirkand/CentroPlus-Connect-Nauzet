@@ -29,6 +29,24 @@ public class ActividadController {
         return ResponseEntity.ok(service.findById(id));
     }
 
+    @Operation(summary = "Buscar actividades por tipo (DEPORTIVA / ACADEMICA)")
+    @GetMapping("/tipo/{tipo}")
+    public ResponseEntity<List<ActividadDTO>> findByTipo(@PathVariable String tipo) {
+        return ResponseEntity.ok(service.findByTipo(tipo));
+    }
+
+    @Operation(summary = "Buscar actividades por nombre (búsqueda parcial)")
+    @GetMapping("/buscar")
+    public ResponseEntity<List<ActividadDTO>> findByNombre(@RequestParam String nombre) {
+        return ResponseEntity.ok(service.findByNombre(nombre));
+    }
+
+    @Operation(summary = "Buscar actividades por precio máximo")
+    @GetMapping("/precio")
+    public ResponseEntity<List<ActividadDTO>> findByPrecio(@RequestParam double max) {
+        return ResponseEntity.ok(service.findByPrecioMaximo(max));
+    }
+
     @Operation(summary = "Crear nueva actividad")
     @PostMapping
     public ResponseEntity<ActividadDTO> create(@RequestBody ActividadDTO dto) {
@@ -37,9 +55,7 @@ public class ActividadController {
 
     @Operation(summary = "Actualizar actividad existente")
     @PutMapping("/{id}")
-    public ResponseEntity<ActividadDTO> update(
-            @PathVariable int id,
-            @RequestBody ActividadDTO dto) {
+    public ResponseEntity<ActividadDTO> update(@PathVariable int id, @RequestBody ActividadDTO dto) {
         return ResponseEntity.ok(service.update(id, dto));
     }
 

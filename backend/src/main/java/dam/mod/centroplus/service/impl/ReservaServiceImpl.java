@@ -39,6 +39,28 @@ public class ReservaServiceImpl implements IReservaService {
     }
 
     @Override
+    public List<ReservaDTO> findByIdUsuario(int idUsuario) {
+        return reservaRepository.findByIdUsuario(idUsuario).stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ReservaDTO> findByIdActividad(int idActividad) {
+        return reservaRepository.findByIdActividad(idActividad).stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ReservaDTO> findByEstado(String estado) {
+        validarEstado(estado);
+        return reservaRepository.findByEstado(estado).stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public ReservaDTO create(ReservaDTO dto) {
         usuarioRepository.findById(dto.getIdUsuario())
                 .orElseThrow(() -> new IllegalArgumentException("El usuario no existe"));
@@ -46,24 +68,19 @@ public class ReservaServiceImpl implements IReservaService {
         actividadRepository.findById(dto.getIdActividad())
                 .orElseThrow(() -> new IllegalArgumentException("La actividad no existe"));
 
-        if (!actividadService.reservarPlaza(dto.getIdActividad())) {
-            throw new IllegalArgumentException("No hay plazas disponibles");
+        boolean yaReservado = reservaRepository
+                .existsByIdActividadAndIdUsuarioAndEstado(
+                        dto.getIdActividad(), dto.getIdUsuario(), "ACTIVA");
+        if (yaReservado) {
+            throw new IllegalArgumentException("Ya existe una reserva activa para esta actividad");
         }
 
-        boolean yaReservado = reservaRepository
-                .existsByIdActividadAndIdUsuario(dto.getIdActividad(), dto.getIdUsuario());
-        if (yaReservado) {
-            actividadService.cancelarPlaza(dto.getIdActividad());
-            throw new IllegalArgumentException("Ya existe una reserva para esta actividad");
-        }
+        actividadService.reservarPlaza(dto.getIdActividad());
 
         ReservaEntity entity = toEntity(dto);
-        if (entity.getFecha() == null || entity.getFecha().isBlank()) {
-            entity.setFecha(LocalDate.now().toString());
-        }
-        if (entity.getEstado() == null || entity.getEstado().isBlank()) {
-            entity.setEstado("ACTIVA");
-        }
+        entity.setId(0);
+        entity.setFecha(LocalDate.now().toString());
+        entity.setEstado("ACTIVA");
 
         return toDTO(reservaRepository.save(entity));
     }
@@ -87,13 +104,6 @@ public class ReservaServiceImpl implements IReservaService {
     }
 
     @Override
-    public List<ReservaDTO> findByIdUsuario(int idUsuario) {
-        return reservaRepository.findByIdUsuario(idUsuario).stream()
-                .map(this::toDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public boolean cambiarEstado(int idReserva, String nuevoEstado) {
         ReservaEntity reserva = reservaRepository.findById(idReserva)
                 .orElseThrow(() -> new RuntimeException("Reserva no encontrada con id: " + idReserva));
@@ -103,7 +113,6 @@ public class ReservaServiceImpl implements IReservaService {
         if ("CANCELADA".equals(nuevoEstado) && !"CANCELADA".equals(reserva.getEstado())) {
             actividadService.cancelarPlaza(reserva.getIdActividad());
         }
-
         if ("ACTIVA".equals(nuevoEstado) && "CANCELADA".equals(reserva.getEstado())) {
             actividadService.reservarPlaza(reserva.getIdActividad());
         }
@@ -131,32 +140,24 @@ public class ReservaServiceImpl implements IReservaService {
         String nombreActividad = actividadRepository.findById(e.getIdActividad())
                 .map(ActividadEntity::getNombre)
                 .orElse("");
-
-        return new ReservaDTO(
-                e.getId(),
-                e.getIdUsuario(),
-                e.getIdActividad(),
-                e.getFecha(),
-                e.getEstado(),
-                nombreActividad);
+        return new ReservaDTO(e.getId(), e.getIdUsuario(), e.getIdActividad(),
+                e.getFecha(), e.getEstado(), nombreActividad);
     }
 
     private ReservaEntity toEntity(ReservaDTO d) {
         ReservaEntity e = new ReservaEntity();
-        e.setIdUsuario(d.getIdUsuario());
-        e.setIdActividad(d.getIdActividad());
+        e.setIdUsuario(d.getIdUsuario());  
+        e.setIdActividad(d.getIdActividad()); 
         e.setFecha(d.getFecha());
         e.setEstado(d.getEstado());
         return e;
     }
 
     private void validarEstado(String estado) {
-        if (estado == null ||
-                (!estado.equals("ACTIVA") &&
-                        !estado.equals("CANCELADA") &&
-                        !estado.equals("COMPLETADA"))) {
+        if (estado == null || (!estado.equals("ACTIVA") &&
+                !estado.equals("CANCELADA") && !estado.equals("COMPLETADA"))) {
             throw new IllegalArgumentException(
-                    "Estado inválido. Valores permitidos: ACTIVA, CANCELADA, COMPLETADA");
+                    "Estado inválido. Valores: ACTIVA, CANCELADA, COMPLETADA");
         }
     }
 }

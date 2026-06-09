@@ -35,6 +35,18 @@ public class IncidenciaController {
         return ResponseEntity.ok(service.findByIdUsuario(idUsuario));
     }
 
+    @Operation(summary = "Listar incidencias por estado (ABIERTA / EN_PROCESO / CERRADA)")
+    @GetMapping("/estado/{estado}")
+    public ResponseEntity<List<IncidenciaDTO>> findByEstado(@PathVariable String estado) {
+        return ResponseEntity.ok(service.findByEstado(estado));
+    }
+
+    @Operation(summary = "Buscar incidencias por asunto (búsqueda parcial)")
+    @GetMapping("/buscar")
+    public ResponseEntity<List<IncidenciaDTO>> findByAsunto(@RequestParam String asunto) {
+        return ResponseEntity.ok(service.findByAsunto(asunto));
+    }
+
     @Operation(summary = "Crear nueva incidencia")
     @PostMapping
     public ResponseEntity<IncidenciaDTO> create(@RequestBody IncidenciaDTO dto) {

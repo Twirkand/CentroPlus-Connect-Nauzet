@@ -6,6 +6,9 @@ import java.util.List;
 public interface IActividadService {
     List<ActividadDTO> findAll();
     ActividadDTO findById(int id);
+    List<ActividadDTO> findByTipo(String tipo);
+    List<ActividadDTO> findByNombre(String nombre);
+    List<ActividadDTO> findByPrecioMaximo(double precio);
     ActividadDTO create(ActividadDTO dto);
     ActividadDTO update(int id, ActividadDTO dto);
     void delete(int id);

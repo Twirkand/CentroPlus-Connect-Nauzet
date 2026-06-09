@@ -34,6 +34,28 @@ public class IncidenciaServiceImpl implements IIncidenciaService {
     }
 
     @Override
+    public List<IncidenciaDTO> findByIdUsuario(int idUsuario) {
+        return incidenciaRepository.findByIdUsuario(idUsuario).stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<IncidenciaDTO> findByEstado(String estado) {
+        validarEstado(estado);
+        return incidenciaRepository.findByEstado(estado).stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<IncidenciaDTO> findByAsunto(String asunto) {
+        return incidenciaRepository.findByAsuntoContainingIgnoreCase(asunto).stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public IncidenciaDTO create(IncidenciaDTO dto) {
         validar(dto);
 
@@ -41,13 +63,9 @@ public class IncidenciaServiceImpl implements IIncidenciaService {
                 .orElseThrow(() -> new IllegalArgumentException("El usuario no existe"));
 
         IncidenciaEntity entity = toEntity(dto);
-
-        if (entity.getFecha() == null || entity.getFecha().isBlank()) {
-            entity.setFecha(LocalDate.now().toString());
-        }
-        if (entity.getEstado() == null || entity.getEstado().isBlank()) {
-            entity.setEstado("ABIERTA");
-        }
+        entity.setId(0);
+        entity.setFecha(LocalDate.now().toString());
+        entity.setEstado("ABIERTA");
 
         return toDTO(incidenciaRepository.save(entity));
     }
@@ -72,17 +90,9 @@ public class IncidenciaServiceImpl implements IIncidenciaService {
     }
 
     @Override
-    public List<IncidenciaDTO> findByIdUsuario(int idUsuario) {
-        return incidenciaRepository.findByIdUsuario(idUsuario).stream()
-                .map(this::toDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public boolean cambiarEstado(int idIncidencia, String nuevoEstado) {
         IncidenciaEntity incidencia = incidenciaRepository.findById(idIncidencia)
                 .orElseThrow(() -> new RuntimeException("Incidencia no encontrada con id: " + idIncidencia));
-
         validarEstado(nuevoEstado);
         incidencia.setEstado(nuevoEstado);
         incidenciaRepository.save(incidencia);
@@ -91,18 +101,13 @@ public class IncidenciaServiceImpl implements IIncidenciaService {
 
 
     private IncidenciaDTO toDTO(IncidenciaEntity e) {
-        return new IncidenciaDTO(
-                e.getId(),
-                e.getIdUsuario(),
-                e.getAsunto(),
-                e.getDescripcion(),
-                e.getFecha(),
-                e.getEstado());
+        return new IncidenciaDTO(e.getId(), e.getIdUsuario(), e.getAsunto(),
+                e.getDescripcion(), e.getFecha(), e.getEstado());
     }
 
     private IncidenciaEntity toEntity(IncidenciaDTO d) {
         IncidenciaEntity e = new IncidenciaEntity();
-        e.setIdUsuario(d.getIdUsuario());
+        e.setIdUsuario(d.getIdUsuario()); 
         e.setAsunto(d.getAsunto());
         e.setDescripcion(d.getDescripcion());
         e.setFecha(d.getFecha());
@@ -110,28 +115,21 @@ public class IncidenciaServiceImpl implements IIncidenciaService {
         return e;
     }
 
+
     private void validar(IncidenciaDTO dto) {
-        if (dto == null) {
-            throw new IllegalArgumentException("La incidencia no puede ser null");
-        }
-        if (dto.getAsunto() == null || dto.getAsunto().isBlank()) {
+        if (dto == null) throw new IllegalArgumentException("La incidencia no puede ser null");
+        if (dto.getAsunto() == null || dto.getAsunto().isBlank())
             throw new IllegalArgumentException("El asunto es obligatorio");
-        }
-        if (dto.getDescripcion() == null || dto.getDescripcion().isBlank()) {
+        if (dto.getDescripcion() == null || dto.getDescripcion().isBlank())
             throw new IllegalArgumentException("La descripción es obligatoria");
-        }
-        if (dto.getEstado() != null) {
-            validarEstado(dto.getEstado());
-        }
+        if (dto.getEstado() != null) validarEstado(dto.getEstado());
     }
 
     private void validarEstado(String estado) {
-        if (estado == null ||
-                (!estado.equals("ABIERTA") &&
-                        !estado.equals("EN_PROCESO") &&
-                        !estado.equals("CERRADA"))) {
+        if (estado == null || (!estado.equals("ABIERTA") &&
+                !estado.equals("EN_PROCESO") && !estado.equals("CERRADA"))) {
             throw new IllegalArgumentException(
-                    "Estado inválido. Valores permitidos: ABIERTA, EN_PROCESO, CERRADA");
+                    "Estado inválido. Valores: ABIERTA, EN_PROCESO, CERRADA");
         }
     }
 }

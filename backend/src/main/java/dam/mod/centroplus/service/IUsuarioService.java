@@ -6,6 +6,10 @@ import java.util.List;
 public interface IUsuarioService {
     List<UsuarioDTO> findAll();
     UsuarioDTO findById(int id);
+    UsuarioDTO findByDni(String dni);
+    UsuarioDTO findByEmail(String email);
+    List<UsuarioDTO> findByTipo(String tipo);
+    List<UsuarioDTO> findByNombre(String nombre);
     UsuarioDTO create(UsuarioDTO dto, String password);
     UsuarioDTO update(int id, UsuarioDTO dto);
     void delete(int id);

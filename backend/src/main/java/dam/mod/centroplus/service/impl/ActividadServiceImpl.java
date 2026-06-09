@@ -31,9 +31,40 @@ public class ActividadServiceImpl implements IActividadService {
     }
 
     @Override
+    public List<ActividadDTO> findByTipo(String tipo) {
+        if (tipo == null || (!tipo.equals("DEPORTIVA") && !tipo.equals("ACADEMICA"))) {
+            throw new IllegalArgumentException("Tipo inválido. Valores: DEPORTIVA, ACADEMICA");
+        }
+        return repository.findByTipoActividad(tipo).stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ActividadDTO> findByNombre(String nombre) {
+        if (nombre == null || nombre.isBlank()) {
+            throw new IllegalArgumentException("El nombre de búsqueda no puede estar vacío");
+        }
+        return repository.findByNombreContainingIgnoreCase(nombre).stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ActividadDTO> findByPrecioMaximo(double precio) {
+        if (precio < 0) {
+            throw new IllegalArgumentException("El precio no puede ser negativo");
+        }
+        return repository.findByPrecioLessThanEqual(precio).stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public ActividadDTO create(ActividadDTO dto) {
         validar(dto);
-        return toDTO(repository.save(toEntity(dto)));
+        ActividadEntity entity = toEntity(dto);
+        return toDTO(repository.save(entity));
     }
 
     @Override
@@ -86,6 +117,8 @@ public class ActividadServiceImpl implements IActividadService {
         return true;
     }
 
+    // ─── Mapeos ───────────────────────────────────────────────────────────────
+
     private ActividadDTO toDTO(ActividadEntity e) {
         return new ActividadDTO(
                 e.getId(),
@@ -94,20 +127,22 @@ public class ActividadServiceImpl implements IActividadService {
                 e.getDuracion(),
                 e.getPrecio(),
                 e.getPlazasMaximas(),
-                e.getPlazasOcupadas()
-        );
+                e.getPlazasOcupadas());
     }
 
     private ActividadEntity toEntity(ActividadDTO d) {
         ActividadEntity e = new ActividadEntity();
+        // id NO se setea — autoincremental en SQLite
         e.setNombre(d.getNombre());
         e.setTipoActividad(d.getTipoActividad());
         e.setDuracion(d.getDuracion());
         e.setPrecio(d.getPrecio());
         e.setPlazasMaximas(d.getPlazasMaximas());
-        e.setPlazasOcupadas(d.getPlazasOcupadas());
+        e.setPlazasOcupadas(0); // siempre 0 al crear
         return e;
     }
+
+    // ─── Validaciones ─────────────────────────────────────────────────────────
 
     private void validar(ActividadDTO dto) {
         if (dto == null) {
@@ -116,8 +151,10 @@ public class ActividadServiceImpl implements IActividadService {
         if (dto.getNombre() == null || dto.getNombre().isBlank()) {
             throw new IllegalArgumentException("El nombre de la actividad es obligatorio");
         }
-        if (!dto.getTipoActividad().equals("DEPORTIVA") && !dto.getTipoActividad().equals("ACADEMICA")) {
-            throw new IllegalArgumentException("Tipo de actividad inválido. Valores: DEPORTIVA, ACADEMICA");
+        if (dto.getTipoActividad() == null ||
+                (!dto.getTipoActividad().equals("DEPORTIVA") &&
+                        !dto.getTipoActividad().equals("ACADEMICA"))) {
+            throw new IllegalArgumentException("Tipo inválido. Valores: DEPORTIVA, ACADEMICA");
         }
         if (dto.getDuracion() <= 0) {
             throw new IllegalArgumentException("La duración debe ser mayor a 0");

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>CentroPlus - Acceso</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a1a2e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            width: 360px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        h2 { text-align: center; color: #1a1a2e; margin-bottom: 8px; }
+        p  { text-align: center; color: #666; margin-bottom: 24px; font-size: 14px; }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #6c63ff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover { background: #574fd6; }
+        .error { color: red; text-align: center; font-size: 13px; margin-top: 12px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>CentroPlus</h2>
+        <p>Acceso al panel de administración</p>
+        <form method="POST" action="/do-login">
+            <input type="text" name="username" placeholder="DNI" />
+            <input type="password" name="password" placeholder="Contraseña" />
+            <button type="submit">Entrar</button>
+        </form>
+        <div class="error">
+            <script>
+                const params = new URLSearchParams(window.location.search);
+                if (params.get('error')) {
+                    document.write('DNI o contraseña incorrectos');
+                }
+            </script>
+        </div>
+    </div>
+</body>
+</html>
