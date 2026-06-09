@@ -14,5 +14,4 @@ public class Usuario {
     private String email;
     private String telefono;
     private String tipoUsuario;
-    // La password NO se expone en el dominio de salida
 }

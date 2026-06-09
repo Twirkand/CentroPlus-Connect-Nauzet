@@ -4,10 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * Modelo de dominio puro.
- * Sin anotaciones JPA ni de frameworks — representa la entidad de negocio.
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

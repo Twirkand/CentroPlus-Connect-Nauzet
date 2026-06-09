@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>CentroPlus - Panel Admin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(to bottom, #e8f4fc, #cce4f6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 20px;
+            width: 360px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(8px);
+            text-align: center;
+        }
+
+        h2 {
+            color: #0d2f4f;
+            margin-bottom: 8px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(to right, #3a9bd5, #2176ae);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-bottom: 28px;
+        }
+
+        .btn-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            width: 100%;
+            padding: 14px 18px;
+            background: linear-gradient(to bottom, #3a9bd5, #2176ae);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background: linear-gradient(to bottom, #4db8f0, #3a9bd5);
+            box-shadow: 0 4px 12px rgba(58, 155, 213, 0.35);
+            transform: translateY(-1px);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 18px;
+        }
+
+        .btn-text {
+            text-align: left;
+        }
+
+        .btn-text span {
+            display: block;
+            font-size: 12px;
+            font-weight: 400;
+            opacity: 0.85;
+            margin-top: 1px;
+        }
+
+        .logout-link {
+            font-size: 13px;
+            color: #2176ae;
+            text-decoration: none;
+            opacity: 0.75;
+            transition: opacity 0.2s;
+        }
+
+        .logout-link:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>CentroPlus</h2>
+        <div class="badge">Admin</div>
+
+        <div class="btn-grid">
+
+            <button class="btn" onclick="loginH2()">
+                <div class="btn-icon">🗄️</div>
+                <div class="btn-text">
+                    Consola H2
+                    <span>Gestión de base de datos</span>
+                </div>
+            </button>
+
+            <a class="btn" href="/swagger-ui.html">
+                <div class="btn-icon">📋</div>
+                <div class="btn-text">
+                    Swagger UI
+                    <span>Documentación de la API</span>
+                </div>
+            </a>
+        </div>
+
+        <a class="logout-link" href="/do-logout">Cerrar sesión</a>
+    </div>
+
+    <form id="h2Form" method="POST" action="/h2-console/login.do" target="_blank">
+        <input type="hidden" name="language" value="es" />
+        <input type="hidden" name="setting" value="Generic H2 (Embedded)" />
+        <input type="hidden" name="name" value="Generic H2 (Embedded)" />
+        <input type="hidden" name="driver" value="org.h2.Driver" />
+        <input type="hidden" name="url" value="jdbc:h2:file:~/data/centroplusdb" />
+        <input type="hidden" name="user" value="admin" />
+        <input type="hidden" name="password" value="admin123" />
+    </form>
+
+    <script>
+        function loginH2() {
+            document.getElementById('h2Form').submit();
+        }
+    </script>
+</body>
+</html>

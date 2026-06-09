@@ -67,7 +67,6 @@ public class UsuarioServiceImpl implements UsuarioServicePort {
         if (persistenceAdapter.existsByEmail(usuario.getEmail()))
             throw new IllegalArgumentException("Ya existe un usuario con ese email");
 
-        // Construir la entity directamente para poder asignar password hasheado
         UsuarioJpaEntity entity = mapper.toJpaEntity(usuario);
         entity.setId(0);
         entity.setDni(usuario.getDni().toUpperCase().trim());

@@ -9,10 +9,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/**
- * Adaptador de salida: traduce entre el dominio y JPA.
- * Es la única clase que conoce tanto el dominio como la infraestructura JPA.
- */
 @Component
 @RequiredArgsConstructor
 public class ActividadPersistenceAdapter {

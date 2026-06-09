@@ -5,10 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
-/**
- * Entidad JPA — vive en el adaptador de salida.
- * El dominio nunca la ve directamente.
- */
 @Entity
 @Table(name = "actividades")
 @Data

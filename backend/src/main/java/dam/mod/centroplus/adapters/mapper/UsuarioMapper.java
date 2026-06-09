@@ -10,7 +10,6 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface UsuarioMapper {
 
-    // La password de la entity NO se mapea al dominio (seguridad)
     Usuario toDomain(UsuarioJpaEntity entity);
 
     @Mapping(target = "password", ignore = true)

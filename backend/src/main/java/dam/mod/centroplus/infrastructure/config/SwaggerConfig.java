@@ -17,7 +17,7 @@ public class SwaggerConfig {
                 .info(new Info()
                         .title("CentroPlus API")
                         .version("1.0")
-                        .description("API REST del sistema de gestión CentroPlus — Arquitectura Hexagonal"))
+                        .description("API REST del sistema de gestión CentroPlus"))
                 .addSecurityItem(new SecurityRequirement().addList("Bearer Token"))
                 .components(new Components()
                         .addSecuritySchemes("Bearer Token", new SecurityScheme()
