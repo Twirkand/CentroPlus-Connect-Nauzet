@@ -22,7 +22,7 @@ CREATE TABLE usuarios (
     dni TEXT NOT NULL UNIQUE,
     email TEXT NOT NULL,
     telefono TEXT,
-    tipo_usuario TEXT NOT NULL CHECK(tipo_usuario IN ('ALUMNO','SOCIO','AMBOS')),
+    tipo_usuario TEXT NOT NULL CHECK(tipo_usuario IN ('ALUMNO','SOCIO','AMBOS','ADMIN')),
     password TEXT NOT NULL,
     activo INTEGER NOT NULL DEFAULT 1,
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,

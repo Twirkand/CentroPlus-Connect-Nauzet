@@ -1,49 +1,110 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>CentroPlus - Acceso</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #1a1a2e;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(to bottom, #e8f4fc, #cce4f6);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
         }
+
         .card {
-            background: white;
+            background: rgba(255, 255, 255, 0.8);
             padding: 40px;
-            border-radius: 12px;
+            border-radius: 20px;
             width: 360px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(8px);
         }
-        h2 { text-align: center; color: #1a1a2e; margin-bottom: 8px; }
-        p  { text-align: center; color: #666; margin-bottom: 24px; font-size: 14px; }
+
+        h2 {
+            text-align: center;
+            color: #0d2f4f;
+            margin-bottom: 8px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        p {
+            text-align: center;
+            color: #0a2540;
+            margin-bottom: 24px;
+            font-size: 14px;
+        }
+
         input {
             width: 100%;
             padding: 12px;
             margin-bottom: 16px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+
+            background: rgba(232, 244, 252, 0.8);
+            border: 1.5px solid #3a9bd5;
+            border-radius: 10px;
+
+            color: #0d2f4f;
             font-size: 14px;
+
+            transition: all 0.2s ease;
         }
+
+        input:focus {
+            outline: none;
+            border-color: #2176ae;
+            box-shadow: 0 0 8px rgba(58, 155, 213, 0.3);
+        }
+
+        input::placeholder {
+            color: rgba(13, 47, 79, 0.5);
+        }
+
         button {
             width: 100%;
             padding: 12px;
-            background: #6c63ff;
+
+            background: linear-gradient(to bottom, #3a9bd5, #2176ae);
             color: white;
+
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
+
             font-size: 16px;
+            font-weight: bold;
+
             cursor: pointer;
+            transition: all 0.2s ease;
         }
-        button:hover { background: #574fd6; }
-        .error { color: red; text-align: center; font-size: 13px; margin-top: 12px; }
+
+        button:hover {
+            background: linear-gradient(to bottom, #4db8f0, #3a9bd5);
+            box-shadow: 0 4px 12px rgba(58, 155, 213, 0.35);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .error {
+            color: #c0392b;
+            text-align: center;
+            font-size: 13px;
+            margin-top: 12px;
+            font-weight: 600;
+        }
     </style>
 </head>
+
 <body>
     <div class="card">
         <h2>CentroPlus</h2>
@@ -63,4 +124,5 @@
         </div>
     </div>
 </body>
+
 </html>
