@@ -6,9 +6,10 @@ Este repositorio contiene la documentación del proyecto **CentroPlus Connect**,
 
 # 🇪🇸 Documentación en español
 
-- 📘 Aplicación → [App](./App/README.md)
-- 🗂️ Diccionario de datos → [Data Dictionary](./Dictionary/README.md)
-- 🗄️ Base de datos → [DataBase](./DataBase/README.md)
+- 📘 Aplicación → [App](./App/APP.md)
+- 🗂️ Diccionario de datos → [Data Dictionary](./Dictionary/DICTIONARY.md)
+- 🗄️ Base de datos → [DataBase](./DataBase/DATABASE.md)
+- 🔌 API REST → [API](./api/API.md)
 
 ---
 
@@ -19,8 +20,8 @@ CentroPlus Connect es una aplicación de gestión desarrollada en Java que permi
 - Gestión de usuarios
 - Sistema de actividades y reservas
 - Gestión de incidencias
-- Autenticación con login y tokens (remember me)
-- Base de datos SQLite embebida
+- Autenticación con login y tokens JWT
+- Base de datos H2 embebida (arquitectura hexagonal)
 
 ---
 
