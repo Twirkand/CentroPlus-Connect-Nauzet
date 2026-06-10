@@ -9,7 +9,8 @@ Este repositorio contiene la documentación del proyecto **CentroPlus Connect**,
 - 📘 Aplicación → [App](./App/APP.md)
 - 🗂️ Diccionario de datos → [Data Dictionary](./Dictionary/DICTIONARY.md)
 - 🗄️ Base de datos → [DataBase](./DataBase/DATABASE.md)
-- 🔌 API REST → [API](./api/API.md)
+- 🔌 API REST → [Api](./api/API.md)
+- ⚙️​ Instalation → [Instalation](./INSTALATION.md)
 
 ---
 
