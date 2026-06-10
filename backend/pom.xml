@@ -13,7 +13,7 @@
 
     <groupId>dam.mod</groupId>
     <artifactId>centroplus</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0</version>
     <name>backend</name>
     <description>CentroPlus Connect - Arquitectura Hexagonal</description>
 
@@ -101,7 +101,6 @@
 
     <build>
         <plugins>
-            <!-- Surefire con provider JUnit 5 explícito para que descubra los tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>

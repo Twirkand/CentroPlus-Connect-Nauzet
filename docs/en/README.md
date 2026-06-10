@@ -11,6 +11,8 @@ This repository contains the documentation for the **CentroPlus Connect** projec
 - 🗄️ Database → [DataBase](./DataBase/DATABASE.md)
 - 🔌 REST API → [Api](./api/API.md)
 - ⚙️​ Instalation → [Instalation](./INSTALATION.md)
+- 📜​​ Project Report → [Project Report](./PROJECT_REPORT.md)
+
 ---
 
 # 📌 General Description
